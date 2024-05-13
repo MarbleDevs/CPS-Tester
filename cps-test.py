@@ -60,7 +60,7 @@ window.geometry("500x350")
 
 #Title
 titel_string = tk.StringVar()
-titel_label = ttk.Label(master = window, text = "🔥 Blnix CPS Test 🔥", font = "Calibri 24 bold")
+titel_label = ttk.Label(master = window, text = "🔥 CPS Test 🔥", font = "Calibri 24 bold")
 titel_label.pack()
 
 #Set Time
