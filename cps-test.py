@@ -7,18 +7,18 @@ from threading import Thread
 started = False
 block = False
 time = 1
-_passed_time = int(0)
-clicks = int(0)
+_passed_time = 1
+clicks = 0
 
 def cps_test():
-    global clicks, started, block
+    global clicks
     if not block:
         if started:
             clicks += 1
             cps_label.set(str(clicks))
         else:
             output_string.set("")
-            passed_time.set(int(_passed_time))
+            passed_time.set(time)
             cps_label.set("1")
             Thread(target=cps_loop).start()
             clicks += 1
@@ -26,25 +26,23 @@ def cps_test():
 def cps_loop():
     global _passed_time, time, started, block
     started = True
-    while _passed_time < time:
+    _passed_time = time
+
+    while _passed_time != 0:
         sleep(1)
-        _passed_time += 1
+        _passed_time += -1
         passed_time.set(int(_passed_time))
     started = False
-    block = not started
-    cps = count()
+    block = True
+    cps = clicks / time
     cps_label.set("Counting...")
     output_string.set(f"cps : {cps}")
     sleep(0.5)
     reset()
 
-def count():
-    return clicks / time
-
 def reset():
-    global _passed_time, clicks, block, started
+    global clicks, block, started
     cps_label.set("Click here!")
-    _passed_time = 0.00
     clicks = 0
     block = False
     started = False
